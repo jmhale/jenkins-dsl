@@ -1,6 +1,5 @@
 import dogsec.PythonJobBuilder
 import dogsec.common.LogRotation
-import dogsec.common.Github
 import javaposse.jobdsl.dsl.Job
 
 Job startDNSInstance = new PythonJobBuilder(
@@ -46,4 +45,3 @@ startDNSInstance.with {
 }
 
 LogRotation.keepForBuilds(startDNSInstance, 25)
-// Github.repo(startDNSInstance, 'dns-proxy', 'master')
