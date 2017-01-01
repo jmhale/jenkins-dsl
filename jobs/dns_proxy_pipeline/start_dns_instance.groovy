@@ -37,5 +37,13 @@ startDNSInstance.with {
   }
 }
 
+startDNSInstance.with {
+  wrappers {
+        credentialsBinding {
+            string('DO_TOKEN', 'DigitalOcean API Key')
+        }
+    }
+}
+
 LogRotation.keepForBuilds(startDNSInstance, 25)
 // Github.repo(startDNSInstance, 'dns-proxy', 'master')
