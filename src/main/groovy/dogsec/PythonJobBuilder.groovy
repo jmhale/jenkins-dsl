@@ -15,8 +15,8 @@ class PythonJobBuilder {
   Map arguments
 
   static final String SCRIPT='''#!/bin/bash
-  python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>
-  '''
+python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>
+'''
 
   Job build(DslFactory dslFactory) {
     SimpleTemplateEngine engine = new SimpleTemplateEngine()
