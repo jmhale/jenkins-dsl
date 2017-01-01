@@ -8,14 +8,14 @@ Job reassociateFloatingIP = new PythonJobBuilder(
   scriptPath:'reassociate_floating_ip.py',
   arguments:[
     'droplet-id':'$DROPLET_ID',
-    'ip-address':'$IP_ADDRESS',
+    'region':'$REGION',
   ],
 ).build(this)
 
 reassociateFloatingIP.with {
   parameters {
     stringParam('DROPLET_ID', null, 'ID of the Droplet to associate the Floating IP with')
-    stringParam('IP_ADDRESS', null, 'The floating IP address to re-associate')
+    stringParam('REGION', null, 'The region of the floating IP address to re-associate')
   }
   scm {
     github('jmhale/dns-proxy')
@@ -23,6 +23,16 @@ reassociateFloatingIP.with {
   wrappers {
     credentialsBinding {
         string('DO_TOKEN', 'DigitalOcean API Key')
+    }
+  }
+  publishers {
+    downstreamParameterized {
+      trigger('terminate-dns-instance') {
+        condition('SUCCESS')
+        parameters {
+          propertiesFile('.properties', true)
+        }
+      }
     }
   }
 }
