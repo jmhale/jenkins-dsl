@@ -12,19 +12,6 @@ Job startDNSInstance = new PythonJobBuilder(
 ).build(this)
 
 startDNSInstance.with {
-  publishers {
-    downstreamParameterized {
-      trigger('echo_params') {
-        condition('SUCCESS')
-        parameters {
-          currentBuild()
-        }
-      }
-    }
-  }
-}
-
-startDNSInstance.with {
   parameters {
     choiceParam('REGION', ['nyc1', 'nyc3'], 'Region in which to start the node')
   }
@@ -36,6 +23,16 @@ startDNSInstance.with {
             string('DO_TOKEN', 'DigitalOcean API Key')
         }
     }
+  publishers {
+    downstreamParameterized {
+      trigger('echo_params') {
+        condition('SUCCESS')
+        parameters {
+          currentBuild()
+        }
+      }
+    }
+  }
 }
 
 LogRotation.keepForBuilds(startDNSInstance, 25)
