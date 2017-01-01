@@ -14,7 +14,9 @@ class PythonJobBuilder {
   String repo
   Map arguments
 
-  static final String PIP='''#!/bin/bash
+  static final String ENV='''#!/bin/bash
+virtualenv .pythonenv
+source .pythonenv/bin/activate
 pip install -r requirements.txt
 '''
 
@@ -33,8 +35,7 @@ python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>
     Job job = dslFactory.job(name) {
       it.description this.description
       steps {
-        shell(PIP)
-        shell(script)
+        shell(ENV + script)
       }
     }
     job
