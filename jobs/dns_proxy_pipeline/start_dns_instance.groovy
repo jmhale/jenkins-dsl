@@ -13,7 +13,7 @@ Job startDNSInstance = new PythonJobBuilder(
 
 startDNSInstance.with {
   parameters {
-    choiceParam('REGION', ['nyc1', 'nyc3', 'sfo1'], 'Region in which to start the node')
+    choiceParam('REGION', ['nyc1', 'nyc3'], 'Region in which to start the node')
   }
   scm {
     github('jmhale/dns-proxy')
