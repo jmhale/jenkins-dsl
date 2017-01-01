@@ -15,7 +15,7 @@ Job startDNSInstance = new PythonJobBuilder(
 startDNSInstance.with {
   publishers {
     downstreamParameterized {
-      trigger('echo-params') {
+      trigger('echo_params') {
         condition('SUCCESS')
         parameters {
           currentBuild()
