@@ -14,7 +14,9 @@ class PythonJobBuilder {
   String repo
   Map arguments
 
-  static final String SCRIPT='''python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>'''
+  static final String SCRIPT='''#!/bin/bash
+  python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>
+  '''
 
   Job build(DslFactory dslFactory) {
     SimpleTemplateEngine engine = new SimpleTemplateEngine()
@@ -27,9 +29,7 @@ class PythonJobBuilder {
     Job job = dslFactory.job(name) {
       it.description this.description
       steps {
-        python {
-          command(script)
-        }
+        shell(script)
       }
     }
     job
