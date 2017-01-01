@@ -14,6 +14,10 @@ class PythonJobBuilder {
   String repo
   Map arguments
 
+  static final String PIP='''#!/bin/bash
+pip install -r requirements.txt
+'''
+
   static final String SCRIPT='''#!/bin/bash
 python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>
 '''
@@ -29,6 +33,7 @@ python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>
     Job job = dslFactory.job(name) {
       it.description this.description
       steps {
+        shell(PIP)
         shell(script)
       }
     }
