@@ -26,6 +26,12 @@ startDNSInstance.with {
 }
 
 startDNSInstance.with {
+  parameters {
+    choiceParam('REGION', ['nyc1', 'nyc3'], 'Region in which to start the node')
+  }
+}
+
+startDNSInstance.with {
   scm {
     github('jmhale/dns-proxy')
   }
