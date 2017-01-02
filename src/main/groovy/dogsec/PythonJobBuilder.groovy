@@ -23,9 +23,8 @@ pip install -r requirements.txt
 
   static final String SCRIPT='''python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>'''
 
-  if(preBuild == null) { preBuild = '' }
-
   Job build(DslFactory dslFactory) {
+    if (preBuild == null) { preBuild = '' }
     SimpleTemplateEngine engine = new SimpleTemplateEngine()
     String script = engine.createTemplate(SCRIPT).make(
       [
