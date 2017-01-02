@@ -9,6 +9,15 @@ Job startDNSInstance = new PythonJobBuilder(
   arguments:[
     'region':'$REGION',
   ],
+  preBuild:'''
+if [ "$REGION" = "nyc1" ]; then
+  echo "IP_ADDRESS=$NYC1_IP" >> .properties
+elif [ "$REGION" = "nyc3" ]; then
+  echo "IP_ADDRESS=$NYC3_IP" >> .properties
+else
+  exit 1
+fi
+''',
 ).build(this)
 
 startDNSInstance.with {
@@ -21,6 +30,8 @@ startDNSInstance.with {
   wrappers {
         credentialsBinding {
             string('DO_TOKEN', 'DigitalOcean API Key')
+            string('NYC1_IP', 'nyc1_ip')
+            string('NYC3_IP', 'nyc3_ip')
         }
     }
   publishers {

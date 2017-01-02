@@ -11,7 +11,7 @@ class PythonJobBuilder {
   String name
   String description
   String scriptPath
-  String repo
+  String preBuild
   Map arguments
 
   static final String ENV='''#!/bin/bash
@@ -33,7 +33,7 @@ pip install -r requirements.txt
     Job job = dslFactory.job(name) {
       it.description this.description
       steps {
-        shell(ENV + script)
+        shell(preBuild + ENV + script)
       }
     }
     job
