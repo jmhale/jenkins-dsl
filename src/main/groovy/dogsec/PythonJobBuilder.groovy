@@ -14,13 +14,16 @@ class PythonJobBuilder {
   String preBuild
   Map arguments
 
-  static final String ENV='''#!/bin/bash
-virtualenv .pythonenv
+  static final String ENV='''#!/bin/bash'''
+
+  static final String PYTHONENV='''virtualenv .pythonenv
 source .pythonenv/bin/activate
 pip install -r requirements.txt
 '''
 
   static final String SCRIPT='''python $scriptPath <% arguments.each{ arg, val -> print "${val} " } %>'''
+
+  if(preBuild == null) { preBuild = '' }
 
   Job build(DslFactory dslFactory) {
     SimpleTemplateEngine engine = new SimpleTemplateEngine()
@@ -33,7 +36,7 @@ pip install -r requirements.txt
     Job job = dslFactory.job(name) {
       it.description this.description
       steps {
-        shell(preBuild + ENV + script)
+        shell(ENV + preBuild + PYTHONENV + script)
       }
     }
     job
