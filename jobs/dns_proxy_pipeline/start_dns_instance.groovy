@@ -5,7 +5,7 @@ import javaposse.jobdsl.dsl.Job
 Job startDNSInstance = new PythonJobBuilder(
   name:'start-dns-instance',
   description:'Starts the DNS Proxy instance',
-  scriptPath:'create_dns_instance.py',
+  scriptPath:'dns-proxy/create_dns_instance.py',
   arguments:[
     'region':'$REGION',
   ],

@@ -5,7 +5,7 @@ import javaposse.jobdsl.dsl.Job
 Job reassociateFloatingIP = new PythonJobBuilder(
   name:'reassociate-floating-ip',
   description:'Re-associate a floating IP to a Droplet.',
-  scriptPath:'reassociate_floating_ip.py',
+  scriptPath:'dns-proxy/reassociate_floating_ip.py',
   arguments:[
     'droplet-id':'$DROPLET_ID',
     'region':'$REGION',

@@ -5,7 +5,7 @@ import javaposse.jobdsl.dsl.Job
 Job terminateDNSInstance = new PythonJobBuilder(
   name:'terminate-dns-instance',
   description:'Terminates the old DNS Proxy instance',
-  scriptPath:'terminate_instance.py',
+  scriptPath:'dns-proxy/terminate_instance.py',
   arguments:[
     'droplet-id':'$DROPLET_ID',
   ],
