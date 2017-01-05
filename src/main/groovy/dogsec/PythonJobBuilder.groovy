@@ -14,7 +14,8 @@ class PythonJobBuilder {
   String preBuild
   Map arguments
 
-  static final String ENV='''#!/bin/bash
+  static final String ENV='''\
+#!/bin/bash
 '''
 
   static final String PYTHONENV='''virtualenv .pythonenv
